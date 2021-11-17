@@ -14,4 +14,8 @@ public interface ProductDAO {
 	
 	public void addProduct(Product p);
 
+	public List<Product> getProdFromCat(int catId);
+	
+	public Product getProduct(int prodId);
+
 }

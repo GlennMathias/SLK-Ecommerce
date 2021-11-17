@@ -80,6 +80,76 @@ String addProdQuerry = "insert into  product values ("+p.getProId()+","+p.getPro
 		
 	} 
 	
+	@Override
+	public List<Product> getProdFromCat(int catId)
+	{
+		String getProdQuerry="SELECT * FROM product where ProCatId="+catId;
+		List prodList= new ArrayList<Product>();
+		
+		
+		Statement stmt;
+		try {
+			stmt=connection.createStatement();
+			
+			
+			ResultSet rs= stmt.executeQuery(getProdQuerry);
+			
+			while(rs.next())
+			{
+				Product p = new Product();
+				p.setProId(rs.getInt(1));
+				p.setProCatId(rs.getInt(2));
+				p.setProName(rs.getString(3));
+				p.setProDes(rs.getString(4));
+				p.setProPrice(rs.getInt(5));
+				p.setProdImg(rs.getString(6));
+				System.out.println(p);
+				prodList.add(p);
+			}
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return prodList;
+		
+	}
+
+	@Override
+	public Product getProduct(int prodId) {
+		// TODO Auto-generated method stub
+		String getProdQuerry="SELECT * FROM product where ProId="+prodId;
+		Product p = new Product();
+		
+		Statement stmt;
+		try {
+			stmt=connection.createStatement();
+			
+			
+			ResultSet rs= stmt.executeQuery(getProdQuerry);
+			
+			while(rs.next())
+			{
+				p.setProId(rs.getInt(1));
+				p.setProCatId(rs.getInt(2));
+				p.setProName(rs.getString(3));
+				p.setProDes(rs.getString(4));
+				p.setProPrice(rs.getInt(5));
+				p.setProdImg(rs.getString(6));
+				System.out.println(p);
+			}
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return p;
+	}
+	
 	
 	
 	
