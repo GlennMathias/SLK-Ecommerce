@@ -22,23 +22,23 @@ public class OrderDetailsController {
 	CartDAO cartDao;
 	
 	@GetMapping("/userLogin/{id}")
-	public void userLogin(@PathVariable ("id") int custId)
+	public int userLogin(@PathVariable ("id") int custId)
 	{
-		cartDao.createOrder(custId);
+		return cartDao.createOrder(custId);
 	}
 	
-	@GetMapping("/addCart/{id}/{qty}")
-	public void addCart(@PathVariable ("id") int ProdId,@PathVariable ("qty") int qty)
+	@GetMapping("/addCart/{ordId}/{prodId}/{qty}")
+	public void addCart(@PathVariable ("ordId") int ordId,@PathVariable ("prodId") int ProdId,@PathVariable ("qty") int qty)
 	{
-		
-		cartDao.addToCart(ProdId,qty);
+		System.out.println("Inside Get Cart");
+		cartDao.addToCart(ordId,ProdId,qty);
 		
 	}
 	
 	@GetMapping("/viewCart/{id}")
-	public List<Cart> viewCart(@PathVariable ("id") int custId)
+	public List<Cart> viewCart(@PathVariable ("id") int ordId)
 	{
-		return cartDao.viewCart(custId);
+		return cartDao.viewCart(ordId);
 	}
 	
 	

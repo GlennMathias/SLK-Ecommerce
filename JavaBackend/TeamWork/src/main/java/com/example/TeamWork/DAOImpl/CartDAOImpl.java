@@ -18,7 +18,7 @@ import com.example.TeamWork.model.Cart;
 public class CartDAOImpl implements CartDAO{
 	
 	Connection connection;
-	int ordId=0;
+//	int ordId=0;
 
 	public CartDAOImpl() {
 		connection = DBUtil.getConnection();
@@ -27,7 +27,7 @@ public class CartDAOImpl implements CartDAO{
 		System.out.println("In constructor");
 	}
 	
-	public void createOrder(int CustId)
+	public int createOrder(int CustId)
 	{
 		String getordIdQuery ="select max(OrdId) from orders;";
 		int id = 0;
@@ -71,19 +71,19 @@ public class CartDAOImpl implements CartDAO{
 		
 		
 		
-		this.ordId=id;	
+//		this.ordId=id;	
 		
 		
 //		this.ordId=id;
 		
-		
+		return id;
 		
 	}
 	
-	public void addToCart(int prodId,int qty)
+	public void addToCart(int ordId,int prodId,int qty)
 	{
 			
-		String insertOrderDetailsQuerry = "insert into orddetails values ("+this.ordId+",'"+prodId+"',"+qty+","+"(select ProPrice from product where ProId="+prodId+")*"+qty+");";
+		String insertOrderDetailsQuerry = "insert into orddetails values ("+ordId+",'"+prodId+"',"+qty+","+"(select ProPrice from product where ProId="+prodId+")*"+qty+");";
 		
 		
 		//String insertOrderQuerry = "insert into orders values ("+ordId+",'"+orderDate+"',"+custId+","+total+");";
@@ -100,7 +100,7 @@ public class CartDAOImpl implements CartDAO{
 			e.printStackTrace();
 		}
 		
-String updateOrdersQuerry = "update orders set total=(select sum(price) from orddetails where ordId="+this.ordId+") where ordId="+this.ordId+";";
+String updateOrdersQuerry = "update orders set total=(select sum(price) from orddetails where ordId="+ordId+") where ordId="+ordId+";";
 		
 		
 		//String insertOrderQuerry = "insert into orders values ("+ordId+",'"+orderDate+"',"+custId+","+total+");";
@@ -140,9 +140,9 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 	
 	
 	@Override
-	public List<Cart> viewCart(int custId) {
+	public List<Cart> viewCart(int ordId) {
 		
-		String getordIdQuery ="select * from orddetails where OrdId in (select OrdId from orders where CustId ="+custId+");";
+		String getordIdQuery ="select * from orddetails where OrdId ="+ordId+";";
 		List <Cart> cartList = new ArrayList<Cart>();
 		
 		
