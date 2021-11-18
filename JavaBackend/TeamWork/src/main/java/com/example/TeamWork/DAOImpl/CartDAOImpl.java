@@ -154,9 +154,9 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 				Cart cart = new Cart();
 				
 				cart.setOrdid(rs.getInt(1));
-				cart.setProdid(rs.getInt(1));
-				cart.setQty(rs.getInt(1));
-				cart.setPrice(rs.getInt(1));
+				cart.setProdid(rs.getInt(2));
+				cart.setQty(rs.getInt(3));
+				cart.setPrice(rs.getInt(4));
 				
 				cartList.add(cart);
 				
