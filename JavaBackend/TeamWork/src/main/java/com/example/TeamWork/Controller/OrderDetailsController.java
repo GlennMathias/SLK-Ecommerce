@@ -54,7 +54,7 @@ public class OrderDetailsController {
 	@DeleteMapping("/removeCart/{pid}/{oid}")
 	public void removeCart(@PathVariable ("pid") int ProdId,@PathVariable ("oid") int ordId)
 	{
-		
+		System.out.println("Removing from Cart.");
 		cartDao.removeFromCart(ProdId,ordId);
 	}
 	
