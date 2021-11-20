@@ -6,8 +6,15 @@ public class Cart {
 	int prodid;
 	int qty;
 	int price;
+	Product prod = new Product();
 	
 	
+	public Product getProd() {
+		return prod;
+	}
+	public void setProd(Product prod) {
+		this.prod = prod;
+	}
 	public int getOrdid() {
 		return ordid;
 	}
@@ -32,19 +39,22 @@ public class Cart {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Cart(int ordid, int prodid, int qty, int price) {
+	public Cart(int ordid, int prodid, int qty, int price,Product prod) {
 		super();
 		this.ordid = ordid;
 		this.prodid = prodid;
+		
 		this.qty = qty;
 		this.price = price;
+		this.prod=prod;
+		
 	}
 	public Cart() {
 		super();
 	}
 	@Override
 	public String toString() {
-		return "Cart [ordid=" + ordid + ", prodid=" + prodid + ", qty=" + qty + ", price=" + price + "]";
+		return "Cart [ordid=" + ordid + ", prodid=" + prodid + ", qty=" + qty + ", price=" + price + ", Product=" + prod+"]";
 	}
 	
 	

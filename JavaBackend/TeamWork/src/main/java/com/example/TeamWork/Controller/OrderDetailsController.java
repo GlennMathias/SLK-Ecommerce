@@ -30,7 +30,7 @@ public class OrderDetailsController {
 	@GetMapping("/addCart/{ordId}/{prodId}/{qty}")
 	public void addCart(@PathVariable ("ordId") int ordId,@PathVariable ("prodId") int ProdId,@PathVariable ("qty") int qty)
 	{
-		System.out.println("Inside Get Cart");
+		//System.out.println("Inside Get Cart");
 		cartDao.addToCart(ordId,ProdId,qty);
 		
 	}
@@ -63,6 +63,12 @@ public class OrderDetailsController {
 	public void changeQty(Cart crt)
 	{
 		cartDao.updateCart(crt.getQty(), crt.getProdid(), crt.getOrdid());
+	}
+	
+	@GetMapping("/getTotal/{ordId}")
+	public int getTotal(@PathVariable ("ordId") int ordId)
+	{
+		return cartDao.getOrderTotal(ordId);
 	}
 
 }

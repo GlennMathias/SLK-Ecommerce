@@ -15,6 +15,7 @@ public interface CartDAO {
 	public List<Cart> viewCart(int CustId);
 	public void removeFromCart(int ProdId,int ordId);
 	public void updateCart(int qty, int proId, int ordId);
+	public int getOrderTotal(int ordId);
 	
 	public void payOut();
 }

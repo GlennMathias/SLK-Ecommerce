@@ -53,6 +53,7 @@ public class CustController {
 	@PutMapping("/updateProfile")
 	public void updateProfile(Customer c)
 	{
+		System.out.println(c);
 		custDao.updateprofile(c.getCustid(), c.getCustname(), c.getCustusername(), c.getCustphone(), c.getCustemail(), c.getCustaddress());		
 	}
 	

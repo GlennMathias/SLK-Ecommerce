@@ -18,6 +18,8 @@ import com.example.TeamWork.model.Cart;
 public class CartDAOImpl implements CartDAO{
 	
 	Connection connection;
+	
+	ProductDAOImpl prodDaoImpl = new ProductDAOImpl();
 //	int ordId=0;
 
 	public CartDAOImpl() {
@@ -154,10 +156,10 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 				Cart cart = new Cart();
 				
 				cart.setOrdid(rs.getInt(1));
-				cart.setProdid(rs.getInt(2));
+				cart.setProdid((rs.getInt(2)));
 				cart.setQty(rs.getInt(3));
 				cart.setPrice(rs.getInt(4));
-				
+				cart.setProd(prodDaoImpl.getProduct( rs.getInt(2) ));
 				cartList.add(cart);
 				
 			}
@@ -191,6 +193,25 @@ String removeOrderDetailsQuerry = "delete from orddetails where ProId= "+ProdId+
 			e.printStackTrace();
 		}
 		
+		
+		
+String updateOrdersQuerry = "update orders set total=(select sum(price) from orddetails where ordId="+ordId+") where ordId="+ordId+";";
+		
+		
+		//String insertOrderQuerry = "insert into orders values ("+ordId+",'"+orderDate+"',"+custId+","+total+");";
+		
+		System.out.println(updateOrdersQuerry);
+		try {
+			stmt=connection.createStatement();
+			stmt.executeUpdate(updateOrdersQuerry);
+			
+			}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			System.out.println(e);
+		}
+		
 	}
 	
 	@Override
@@ -212,6 +233,30 @@ String removeOrderDetailsQuerry = "delete from orddetails where ProId= "+ProdId+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public int getOrderTotal(int ordId)
+	{
+		String getTotalQuery ="select total from orders where OrdId ="+ordId+";";
+		int total=0;
+		
+		try {
+			Statement stmt=connection.createStatement();
+			ResultSet rs = stmt.executeQuery(getTotalQuery);
+			
+			while (rs.next()) {
+				total=rs.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		
+		return total;
 	}
 
 }
