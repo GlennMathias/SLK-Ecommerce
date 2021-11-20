@@ -50,11 +50,13 @@ public class CustController {
 	}
 	
 	
-	@PutMapping("/updateProfile")
-	public void updateProfile(Customer c)
+	@PutMapping("/updateProfile/{custId}")
+	public void updateProfile(@PathVariable ("custId") int custId,@RequestBody Customer c)
 	{
-		System.out.println(c);
-		custDao.updateprofile(c.getCustid(), c.getCustname(), c.getCustusername(), c.getCustphone(), c.getCustemail(), c.getCustaddress());		
+		System.out.println("C before adding cId: "+c);
+		c.setCustid(custId);
+		System.out.println("C after adding cId: "+c);
+		custDao.updateprofile(c);		
 	}
 	
 	

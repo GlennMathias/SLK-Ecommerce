@@ -144,7 +144,7 @@ System.out.println(addCustQuerry);
 	
 	
 	@Override
-	public boolean updateprofile(int CustId, String name, String username, int phoneno, String email, String address) 
+	public boolean updateprofileold(int CustId, String name, String username, int phoneno, String email, String address) 
 	{
 		
 		String updateprofQuery = "update customer set CustName = '"+name+"' , CustUserName='"+username+"' , CustPhone="+phoneno+" , CustEmail='"+email+"' , CustAddress='"+address+"' where CustId="+CustId+";";
@@ -161,6 +161,60 @@ System.out.println(addCustQuerry);
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean updateprofile(Customer c) 
+	{
+		
+		Customer customer= getProfile(c.getCustid());
+		
+		System.out.println("From databse: "+customer);
+		System.out.println("From User: "+c);
+		if (c.getCustid() == 0)
+		{
+			return false;
+		}
+		
+		if (c.getCustname() == null || c.getCustname() == "")
+		{
+			c.setCustname(customer.getCustname());
+			
+		}
+		if(c.getCustusername() == null || c.getCustusername() == "") 
+		{
+			c.setCustusername(customer.getCustusername());
+		}
+		if(c.getCustphone() == 0) 
+		{
+			c.setCustphone(customer.getCustphone());
+		}
+		if(c.getCustemail() == null || c.getCustemail() == "") 
+		{
+			c.setCustemail(customer.getCustemail());
+		}
+		if(c.getCustaddress() == null || c.getCustaddress() == "") 
+		{
+			c.setCustaddress(customer.getCustaddress());
+		}
+		
+		
+		String updateprofQuery = "update customer set CustName = '"+c.getCustname()+"' , CustUserName='"+c.getCustusername()+"' , CustPhone="+c.getCustphone()+" , CustEmail='"+c.getCustemail()+"' , CustAddress='"+c.getCustaddress()+"' where CustId="+c.getCustid()+";";
+		System.out.println(updateprofQuery);
+		
+		Statement st;
+		
+		//int CustId, String name, String username, int phoneno, String email, String address
+		
+		try {
+			st=connection.createStatement();
+			st.executeUpdate(updateprofQuery);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 	
 	
