@@ -155,6 +155,7 @@ System.out.println(addCustQuerry);
 		try {
 			st=connection.createStatement();
 			st.executeUpdate(updateprofQuery);
+			return true;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
