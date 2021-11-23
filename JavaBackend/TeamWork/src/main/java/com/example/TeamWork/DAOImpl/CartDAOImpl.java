@@ -82,7 +82,7 @@ public class CartDAOImpl implements CartDAO{
 		
 	}
 	
-	public void addToCart(int ordId,int prodId,int qty)
+	public boolean addToCart(int ordId,int prodId,int qty)
 	{
 			
 		String insertOrderDetailsQuerry = "insert into orddetails values ("+ordId+",'"+prodId+"',"+qty+","+"(select ProPrice from product where ProId="+prodId+")*"+qty+");";
@@ -100,6 +100,7 @@ public class CartDAOImpl implements CartDAO{
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
 String updateOrdersQuerry = "update orders set total=(select sum(price) from orddetails where ordId="+ordId+") where ordId="+ordId+";";
@@ -117,18 +118,19 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 			// TODO Auto-generated catch block
 
 			System.out.println(e);
+			return false;
 		}
 		
-		
+		return true;
 		
 		
 	}
 	
 	
-	public void payOut()
+	public void payOut(int ordId)
 	{
-		String dropCartQuerry="delete from orddetails";
-		
+		String dropCartQuerry="delete from orddetails where ordId="+ordId+";";
+		System.out.println(dropCartQuerry);
 		Statement stmt;
 		try {
 			stmt=connection.createStatement();
@@ -138,6 +140,7 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -215,7 +218,7 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 	}
 	
 	@Override
-	public void updateCart(int qty, int proId, int ordId)
+	public boolean updateCart(int qty, int proId, int ordId)
 	{
 		String updateOrderDetailsQuerry = "update orddetails set Qty="+qty+", price= "+qty+"*(select ProPrice from product where ProId="+proId+") where ordId = "+ordId+" and proId = "+proId+" ;";
 		
@@ -232,7 +235,10 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+		
+		return true;
 	}
 	
 	@Override
@@ -259,4 +265,6 @@ String updateOrdersQuerry = "update orders set total=(select sum(price) from ord
 		return total;
 	}
 
+	
+	
 }

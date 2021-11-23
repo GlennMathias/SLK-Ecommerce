@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TeamWork.DAO.CartDAO;
@@ -28,10 +29,10 @@ public class OrderDetailsController {
 	}
 	
 	@GetMapping("/addCart/{ordId}/{prodId}/{qty}")
-	public void addCart(@PathVariable ("ordId") int ordId,@PathVariable ("prodId") int ProdId,@PathVariable ("qty") int qty)
+	public boolean addCart(@PathVariable ("ordId") int ordId,@PathVariable ("prodId") int ProdId,@PathVariable ("qty") int qty)
 	{
 		//System.out.println("Inside Get Cart");
-		cartDao.addToCart(ordId,ProdId,qty);
+		return cartDao.addToCart(ordId,ProdId,qty);
 		
 	}
 	
@@ -43,11 +44,11 @@ public class OrderDetailsController {
 	
 	
 	
-	@DeleteMapping("/remove")
-	public void flush()
+	@DeleteMapping("/remove/{ordId}")
+	public void flush(@PathVariable ("ordId") int ordId)
 	{
-		
-		cartDao.payOut();
+		System.out.println("Flushing Cart.");
+		cartDao.payOut(ordId);
 	}
 	
 	
@@ -59,10 +60,10 @@ public class OrderDetailsController {
 	}
 	
 	
-	@PutMapping("/updateCart")
-	public void changeQty(Cart crt)
+	@PutMapping("/updateCart/{id}")
+	public boolean changeQty(@PathVariable ("id") int prodId , @RequestBody Cart crt)
 	{
-		cartDao.updateCart(crt.getQty(), crt.getProdid(), crt.getOrdid());
+		return cartDao.updateCart(crt.getQty(), prodId, crt.getOrdid());
 	}
 	
 	@GetMapping("/getTotal/{ordId}")

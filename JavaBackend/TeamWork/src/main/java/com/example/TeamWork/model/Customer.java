@@ -6,7 +6,7 @@ public class Customer {
 	String custname;
 	String custusername;
 	String custpassword;
-	int custphone;
+	String custphone;
 	String custemail;
 	String custaddress;
 	
@@ -35,10 +35,10 @@ public class Customer {
 	public void setCustpassword(String custpassword) {
 		this.custpassword = custpassword;
 	}
-	public int getCustphone() {
+	public String getCustphone() {
 		return custphone;
 	}
-	public void setCustphone(int custphone) {
+	public void setCustphone(String custphone) {
 		this.custphone = custphone;
 	}
 	public String getCustemail() {
@@ -53,7 +53,7 @@ public class Customer {
 	public void setCustaddress(String custaddress) {
 		this.custaddress = custaddress;
 	}
-	public Customer(int custid, String custname, String custusername, String custpassword, int custphone,
+	public Customer(int custid, String custname, String custusername, String custpassword, String custphone,
 			String custemail, String custaddress) {
 		super();
 		this.custid = custid;

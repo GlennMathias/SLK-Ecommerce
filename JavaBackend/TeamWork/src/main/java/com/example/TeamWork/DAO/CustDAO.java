@@ -13,6 +13,5 @@ public interface CustDAO {
 	int loginValidation(String username, String password);
 	boolean updateprofile(Customer c);
 	Customer getProfile(int userId);
-	boolean updateprofileold(int CustId, String name, String username, int phoneno, String email, String address);
 
 }

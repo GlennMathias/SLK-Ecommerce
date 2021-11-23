@@ -11,11 +11,11 @@ public interface CartDAO {
 	
 	public int createOrder(int CustId);
 	
-	public void addToCart(int ordId,int prodId,int qty);
+	public boolean addToCart(int ordId,int prodId,int qty);
 	public List<Cart> viewCart(int CustId);
 	public void removeFromCart(int ProdId,int ordId);
-	public void updateCart(int qty, int proId, int ordId);
+	public boolean updateCart(int qty, int proId, int ordId);
 	public int getOrderTotal(int ordId);
 	
-	public void payOut();
+	public void payOut(int ordId);
 }

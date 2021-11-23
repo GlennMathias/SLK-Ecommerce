@@ -143,26 +143,6 @@ System.out.println(addCustQuerry);
 	}
 	
 	
-	@Override
-	public boolean updateprofileold(int CustId, String name, String username, int phoneno, String email, String address) 
-	{
-		
-		String updateprofQuery = "update customer set CustName = '"+name+"' , CustUserName='"+username+"' , CustPhone="+phoneno+" , CustEmail='"+email+"' , CustAddress='"+address+"' where CustId="+CustId+";";
-		
-		
-		Statement st;
-		
-		try {
-			st=connection.createStatement();
-			st.executeUpdate(updateprofQuery);
-			return true;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
 	
 	@Override
 	public boolean updateprofile(Customer c) 
@@ -186,7 +166,7 @@ System.out.println(addCustQuerry);
 		{
 			c.setCustusername(customer.getCustusername());
 		}
-		if(c.getCustphone() == 0) 
+		if(c.getCustphone() == null || c.getCustphone() == "") 
 		{
 			c.setCustphone(customer.getCustphone());
 		}
@@ -213,6 +193,7 @@ System.out.println(addCustQuerry);
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		return true;
@@ -236,7 +217,7 @@ System.out.println(addCustQuerry);
 				cust.setCustname(rs.getString(2));
 				cust.setCustusername(rs.getString(3));
 				cust.setCustpassword(rs.getString(4));
-				cust.setCustphone(rs.getInt(5)); 
+				cust.setCustphone(rs.getString(5)); 
 				cust.setCustemail(rs.getString(6));
 				cust.setCustaddress(rs.getString(7));
 			}
@@ -253,5 +234,7 @@ System.out.println(addCustQuerry);
 		
 		
 	}
+	
+	
 
 }

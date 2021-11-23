@@ -37,9 +37,9 @@ public class CustController {
 	
 	
 	@PostMapping("/addCustomer")
-	public void addCustomer(@RequestBody Customer c)
+	public boolean addCustomer(@RequestBody Customer c)
 	{
-		custDao.signup(c);
+		return custDao.signup(c);
 	}
 	
 	
@@ -51,12 +51,12 @@ public class CustController {
 	
 	
 	@PutMapping("/updateProfile/{custId}")
-	public void updateProfile(@PathVariable ("custId") int custId,@RequestBody Customer c)
+	public boolean updateProfile(@PathVariable ("custId") int custId,@RequestBody Customer c)
 	{
 		System.out.println("C before adding cId: "+c);
 		c.setCustid(custId);
 		System.out.println("C after adding cId: "+c);
-		custDao.updateprofile(c);		
+		return custDao.updateprofile(c);		
 	}
 	
 	
