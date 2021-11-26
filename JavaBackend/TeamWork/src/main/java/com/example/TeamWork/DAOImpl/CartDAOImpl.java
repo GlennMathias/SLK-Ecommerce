@@ -55,7 +55,7 @@ public class CartDAOImpl implements CartDAO{
 		}
 		
 		
-		String orderDate="1";
+		String orderDate="01/01/2021";
 		int total =0;
 		String insertOrderQuerry = "insert into orders values ("+id+",'"+orderDate+"',"+CustId+","+total+");";
 		
