@@ -60,10 +60,11 @@ public class OrderDetailsController {
 	}
 	
 	
-	@PutMapping("/updateCart/{id}")
-	public boolean changeQty(@PathVariable ("id") int prodId , @RequestBody Cart crt)
+	@GetMapping("/updateCart/{ordId}/{prodId}/{qty}")
+	public boolean changeQty(@PathVariable ("ordId") int ordId ,@PathVariable ("prodId") int prodId , @PathVariable ("qty") int qty)
 	{
-		return cartDao.updateCart(crt.getQty(), prodId, crt.getOrdid());
+		System.out.println(qty+" "+prodId+" "+ ordId);
+		return cartDao.updateCart(qty, prodId, ordId);
 	}
 	
 	@GetMapping("/getTotal/{ordId}")
